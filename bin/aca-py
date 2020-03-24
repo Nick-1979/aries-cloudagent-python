@@ -45,5 +45,5 @@ if len(sys.argv) > 1 and sys.argv[1] and sys.argv[1][0] != "-":
 else:
     command = None
     args = sys.argv[1:]
-
+print(f"---command: {command} , args: {args}---")
 run_command(command, args)

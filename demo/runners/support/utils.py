@@ -80,7 +80,8 @@ def print_json(data, label: str = None, prefix: str = None, indent: int = 2):
 
 
 def print_formatted(*args, **kwargs):
-    prompt_toolkit.print_formatted_text(*args, **kwargs)
+ #kami   prompt_toolkit.print_formatted_text(*args, **kwargs)
+    pass
 
 
 def print_ext(

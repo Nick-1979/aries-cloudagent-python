@@ -35,15 +35,16 @@ EVENT_LOGGER.propagate = False
 DEFAULT_POSTGRES = bool(os.getenv("POSTGRES"))
 DEFAULT_INTERNAL_HOST = "127.0.0.1"
 DEFAULT_EXTERNAL_HOST = "localhost"
-DEFAULT_BIN_PATH = "../bin"
+# DEFAULT_BIN_PATH = "../bin"
+DEFAULT_BIN_PATH = "../../bin"
 DEFAULT_PYTHON_PATH = ".."
 
 START_TIMEOUT = float(os.getenv("START_TIMEOUT", 30.0))
 
 RUN_MODE = os.getenv("RUNMODE")
 
-GENESIS_URL = os.getenv("GENESIS_URL")
-LEDGER_URL = os.getenv("LEDGER_URL")
+GENESIS_URL = 'http://dev.greenlight.bcovrin.vonx.io/genesis'#os.getenv("GENESIS_URL")
+LEDGER_URL = 'http://dev.greenlight.bcovrin.vonx.io'#os.getenv("LEDGER_URL")
 GENESIS_FILE = os.getenv("GENESIS_FILE")
 
 if RUN_MODE == "docker":
@@ -340,17 +341,22 @@ class DemoAgent:
             bin_path = DEFAULT_BIN_PATH
         if bin_path:
             cmd_path = os.path.join(bin_path, cmd_path)
+
         return list(flatten((["python3", cmd_path, "start"], self.get_agent_args())))
 
     async def start_process(
         self, python_path: str = None, bin_path: str = None, wait: bool = True
     ):
+
         my_env = os.environ.copy()
         python_path = DEFAULT_PYTHON_PATH if python_path is None else python_path
         if python_path:
             my_env["PYTHONPATH"] = python_path
 
         agent_args = self.get_process_args(bin_path)
+
+        print("--agent_args: ", agent_args)
+        print("--my_env[PYTHONPATH]: ", my_env["PYTHONPATH"])
 
         # start agent sub-process
         loop = asyncio.get_event_loop()
